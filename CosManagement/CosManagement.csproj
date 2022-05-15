@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" Version="4.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -18,12 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="CQRS\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Endpoints\" />
+    <Folder Include="CQRS\Appointments\" />
+    <Folder Include="CQRS\Categories\" />
+    <Folder Include="CQRS\Clients\Commands\" />
+    <Folder Include="CQRS\Treatments\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Mappings\" />
     <Folder Include="Middleware\" />
     <Folder Include="Pipelines\" />
   </ItemGroup>
