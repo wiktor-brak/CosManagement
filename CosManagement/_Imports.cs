@@ -1,0 +1,1 @@
+﻿global using CosMeToo.Domain.Common;
