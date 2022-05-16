@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -26,12 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\Appointments\" />
-    <Folder Include="CQRS\Categories\" />
     <Folder Include="CQRS\Clients\Commands\" />
-    <Folder Include="CQRS\Treatments\" />
-    <Folder Include="Middleware\" />
-    <Folder Include="Pipelines\" />
+    <Folder Include="CQRS\Treatments\Commands\" />
   </ItemGroup>
 
 </Project>

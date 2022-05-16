@@ -2,11 +2,13 @@
 using CosManagement.CQRS.Clients.Queries.GetClient;
 using CosManagement.Dtos.Clients;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace CosManagement.Endpoints.Client;
 
+[Authorize]
 public class GetClient : EndpointBaseAsync
 	.WithRequest<Guid>
 	.WithActionResult<GetClientDto>

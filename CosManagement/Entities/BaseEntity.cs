@@ -1,6 +1,8 @@
-﻿namespace CosMeToo.Domain.Common;
+﻿using CosManagement.Interfaces;
 
-public abstract class BaseEntity
+namespace CosMeToo.Domain.Common;
+
+public abstract class BaseEntity : IOwned, IResource
 {
 	public string? OwnerId { get; set; }
 

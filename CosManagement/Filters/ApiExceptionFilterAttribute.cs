@@ -99,7 +99,7 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 		var details = new ProblemDetails
 		{
 			Status = StatusCodes.Status401Unauthorized,
-			Title = "Unauthorized",
+			Title = "You cannot access this resource",
 		};
 
 		context.Result = new ObjectResult(details)
@@ -131,7 +131,7 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 		var details = new ProblemDetails
 		{
 			Status = StatusCodes.Status403Forbidden,
-			Title = "Forbidden",
+			Title = "Forbidden access",
 		};
 
 		context.Result = new ObjectResult(details)

@@ -23,8 +23,8 @@ public class GetClientsWithPagination : EndpointBaseAsync
 
 	[HttpGet("api/clients")]
 	[SwaggerOperation(
-	Summary = "Get paginated list with 10 entires",
-	Description = "Get paginated list with 10 entires",
+	Summary = "Get paginated list of clients with 10 entires",
+	Description = "Get paginated list of clients with 10 entires",
 	OperationId = "Clients.GetAll",
 	Tags = new[] { "ClientsEndpoints" })]
 	public override async Task<ActionResult<PaginatedList<GetClientDto>>> HandleAsync([FromQuery] GetClientsWithPaginationQuery query, CancellationToken cancellationToken = default)
