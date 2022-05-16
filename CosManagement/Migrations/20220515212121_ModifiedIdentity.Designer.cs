@@ -4,6 +4,7 @@ using CosManagement.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CosManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220515212121_ModifiedIdentity")]
+    partial class ModifiedIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace CosManagement.Migrations
 
                     b.HasIndex("TreatmentsId");
 
-                    b.ToTable("AppointmentTreatment", (string)null);
+                    b.ToTable("AppointmentTreatment");
                 });
 
             modelBuilder.Entity("CosManagement.Entities.Appointment", b =>
@@ -71,7 +73,7 @@ namespace CosManagement.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Appointments", (string)null);
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("CosManagement.Entities.Category", b =>
@@ -102,7 +104,7 @@ namespace CosManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CosManagement.Entities.Client", b =>
@@ -149,7 +151,7 @@ namespace CosManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("CosManagement.Entities.Treatment", b =>
@@ -189,7 +191,7 @@ namespace CosManagement.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Treatments", (string)null);
+                    b.ToTable("Treatments");
                 });
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -275,7 +277,7 @@ namespace CosManagement.Migrations
 
                     b.HasIndex("Use");
 
-                    b.ToTable("Keys", (string)null);
+                    b.ToTable("Keys");
                 });
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.PersistedGrant", b =>

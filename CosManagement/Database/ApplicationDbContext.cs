@@ -1,15 +1,23 @@
 ﻿using CosManagement.Entities;
 using CosManagement.Interfaces;
+using Duende.IdentityServer.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace CosManagement.Database;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : ApiAuthorizationDbContext<IdentityUser>
 {
 	private readonly ICurrentUserService _currentUserService;
 
-	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ICurrentUserService currentUserService) : base(options)
+	public ApplicationDbContext(
+		DbContextOptions<ApplicationDbContext> options,
+		IOptions<OperationalStoreOptions> operationalStoreOptions,
+		ICurrentUserService currentUserService) : base(options, operationalStoreOptions)
 	{
 		_currentUserService = currentUserService;
 	}
@@ -45,10 +53,10 @@ public class ApplicationDbContext : DbContext
 		return result;
 	}
 
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	protected override void OnModelCreating(ModelBuilder builder)
 	{
-		modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+		builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-		base.OnModelCreating(modelBuilder);
+		base.OnModelCreating(builder);
 	}
 }
