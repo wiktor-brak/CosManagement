@@ -20,7 +20,7 @@ public class GetClient : EndpointBaseAsync
 		_mediator = mediator;
 	}
 
-	[HttpGet("api/clients/{id}")]
+	[HttpGet("api/clients/{id}", Name = "GetClient")]
 	[SwaggerOperation(
 	Summary = "Get one client by id (GUID)",
 	Description = "Get one client by id (GUID)",
@@ -28,6 +28,6 @@ public class GetClient : EndpointBaseAsync
 	Tags = new[] { "ClientsEndpoints" })]
 	public override async Task<ActionResult<GetClientDto>> HandleAsync(Guid id, CancellationToken cancellationToken = default)
 	{
-		return await _mediator.Send(new GetClientQuery { Id = id }, cancellationToken);
+		return Ok(await _mediator.Send(new GetClientQuery { Id = id }, cancellationToken));
 	}
 }

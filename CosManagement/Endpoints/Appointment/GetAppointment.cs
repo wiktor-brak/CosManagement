@@ -28,6 +28,6 @@ public class GetAppointment : EndpointBaseAsync
 	Tags = new[] { "AppointmentsEndpoints" })]
 	public override async Task<ActionResult<GetAppointmentDto>> HandleAsync(Guid id, CancellationToken cancellationToken = default)
 	{
-		return await _mediator.Send(new GetAppointmentQuery { Id = id }, cancellationToken);
+		return Ok(await _mediator.Send(new GetAppointmentQuery { Id = id }, cancellationToken));
 	}
 }

@@ -27,6 +27,6 @@ public class Login : EndpointBaseAsync
 	Tags = new[] { "IdentityEndpoints" })]
 	public override async Task<ActionResult<JwtResponse>> HandleAsync([FromBody] LoginCommand command, CancellationToken cancellationToken = default)
 	{
-		return await _mediator.Send(command, cancellationToken);
+		return Ok(await _mediator.Send(command, cancellationToken));
 	}
 }

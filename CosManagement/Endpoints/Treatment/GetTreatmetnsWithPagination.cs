@@ -29,6 +29,6 @@ public class GetTreatmetnsWithPagination : EndpointBaseAsync
 	Tags = new[] { "TreatmentsEndpoints" })]
 	public override async Task<ActionResult<PaginatedList<GetTreatmentDto>>> HandleAsync([FromQuery] GetTreatmentsWithPaginationQuery query, CancellationToken cancellationToken = default)
 	{
-		return await _mediator.Send(query, cancellationToken);
+		return Ok(await _mediator.Send(query, cancellationToken));
 	}
 }

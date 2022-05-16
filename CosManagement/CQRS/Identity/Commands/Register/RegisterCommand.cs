@@ -1,5 +1,4 @@
-﻿using CosManagement.Identity.Models;
-using MediatR;
+﻿using MediatR;
 
 namespace CosManagement.CQRS.Identity.Commands;
 

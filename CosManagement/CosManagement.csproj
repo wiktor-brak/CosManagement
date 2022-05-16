@@ -25,9 +25,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CQRS\Clients\Commands\" />
-    <Folder Include="CQRS\Treatments\Commands\" />
-  </ItemGroup>
-
 </Project>

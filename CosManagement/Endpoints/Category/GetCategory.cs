@@ -28,6 +28,6 @@ public class GetCategory : EndpointBaseAsync
 	Tags = new[] { "CategoriesEndpoints" })]
 	public override async Task<ActionResult<GetCategoryDto>> HandleAsync(Guid id, CancellationToken cancellationToken = default)
 	{
-		return await _mediator.Send(new GetCategoryQuery { Id = id }, cancellationToken);
+		return Ok(await _mediator.Send(new GetCategoryQuery { Id = id }, cancellationToken));
 	}
 }

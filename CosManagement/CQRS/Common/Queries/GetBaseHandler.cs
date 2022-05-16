@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CosManagement.Database;
-using CosManagement.Dtos.Clients;
 using CosManagement.Exceptions;
 using CosManagement.Interfaces;
 using MediatR;
@@ -9,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CosManagement.CQRS.Common.Queries;
 
 public class GetBaseHandler<TQuery, TResponse, TResource> : IRequestHandler<TQuery, TResponse>
-	where TQuery : IRequest<TResponse>, IGetQuery
+	where TQuery : IRequest<TResponse>, IIdParameter
 	where TResource : class, IResource, IOwned
 
 {

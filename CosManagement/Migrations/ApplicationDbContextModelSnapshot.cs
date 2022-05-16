@@ -112,7 +112,8 @@ namespace CosManagement.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AdditionalInformations")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -121,7 +122,8 @@ namespace CosManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -142,10 +144,9 @@ namespace CosManagement.Migrations
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Phone")
-                        .IsRequired()
+                    b.Property<string>("Phone")
                         .HasMaxLength(12)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(12)");
 
                     b.HasKey("Id");
 

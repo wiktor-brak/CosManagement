@@ -2,7 +2,6 @@
 using CosManagement.Dtos.Treatments;
 using CosManagement.Entities;
 using CosManagement.Mappings;
-using Newtonsoft.Json;
 
 namespace CosManagement.Dtos.Appointments;
 

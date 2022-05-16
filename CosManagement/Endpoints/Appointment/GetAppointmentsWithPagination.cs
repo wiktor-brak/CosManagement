@@ -29,6 +29,6 @@ public class GetAppointmentsWithPagination : EndpointBaseAsync
 	Tags = new[] { "AppointmentsEndpoints" })]
 	public override async Task<ActionResult<PaginatedList<GetAppointmentDto>>> HandleAsync([FromQuery] GetAppointmentsWithPaginationQuery query, CancellationToken cancellationToken = default)
 	{
-		return await _mediator.Send(query, cancellationToken);
+		return Ok(await _mediator.Send(query, cancellationToken));
 	}
 }

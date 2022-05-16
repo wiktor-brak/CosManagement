@@ -1,6 +1,6 @@
 ﻿namespace CosManagement.Interfaces;
 
-public interface IGetQuery
+public interface IIdParameter
 {
 	public Guid Id { get; set; }
 }

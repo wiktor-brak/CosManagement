@@ -10,7 +10,6 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 
 	public ApiExceptionFilterAttribute()
 	{
-		// Register known exception types and handlers.
 		_exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
 			{
 				{ typeof(LoginFailException), HandleLoginFailException },
@@ -81,12 +80,9 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 
 	private void HandleNotFoundException(ExceptionContext context)
 	{
-		var exception = (NotFoundException)context.Exception;
-
 		var details = new ProblemDetails()
 		{
 			Title = "The specified resource was not found.",
-			Detail = exception.Message
 		};
 
 		context.Result = new NotFoundObjectResult(details);

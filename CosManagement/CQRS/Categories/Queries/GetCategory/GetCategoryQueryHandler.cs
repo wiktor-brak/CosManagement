@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CosManagement.CQRS.Common.Queries;
 using CosManagement.Database;
-using CosManagement.Dtos.Appointments;
 using CosManagement.Dtos.Categories;
 using CosManagement.Entities;
 using CosManagement.Interfaces;

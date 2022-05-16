@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CosManagement.CQRS.Clients.Queries.GetClient;
 
-public class GetClientQuery : IRequest<GetClientDto>, IGetQuery
+public class GetClientQuery : IRequest<GetClientDto>, IIdParameter
 {
 	public Guid Id { get; set; }
 }

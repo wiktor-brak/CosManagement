@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CosManagement.CQRS.Treatments.Queries;
 
-public class GetTreatmentQuery : IRequest<GetTreatmentDto>, IGetQuery
+public class GetTreatmentQuery : IRequest<GetTreatmentDto>, IIdParameter
 {
 	public Guid Id { get; set; }
 }

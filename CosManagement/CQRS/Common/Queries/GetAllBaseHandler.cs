@@ -2,13 +2,10 @@
 using AutoMapper.QueryableExtensions;
 using CosManagement.Common.Models;
 using CosManagement.Database;
-using CosManagement.Dtos.Clients;
-using CosManagement.Entities;
 using CosManagement.Exceptions;
 using CosManagement.Interfaces;
 using CosManagement.Mappings;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace CosManagement.CQRS.Common.Queries;
 

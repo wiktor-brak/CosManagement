@@ -3,29 +3,22 @@ using CosManagement.Identity.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CosManagement.CQRS.Identity.Commands;
 
 public class LoginCommandHandler : IRequestHandler<LoginCommand, JwtResponse>
 {
 	private readonly UserManager<IdentityUser> _userManager;
-	private readonly RoleManager<IdentityRole> _roleManager;
 	private readonly IConfiguration _configuration;
 
 	public LoginCommandHandler(
 		UserManager<IdentityUser> userManager,
-		RoleManager<IdentityRole> roleManager,
 		IConfiguration configuration)
 	{
 		_userManager = userManager;
-		_roleManager = roleManager;
 		_configuration = configuration;
 	}
 
