@@ -44,12 +44,12 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand>
 		if (!result.Succeeded)
 			throw new InternalServerException();
 
-		SeedUserData(user.Id);
+		await SeedUserData(user.Id);
 
 		return Unit.Value;
 	}
 
-	private async void SeedUserData(string id)
+	private async Task SeedUserData(string id)
 	{
 		_context.Categories.Add(new Category
 		{
