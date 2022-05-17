@@ -11,12 +11,12 @@ public class UpdateClientCommandValidator : AbstractValidator<UpdateClientComman
 			.MaximumLength(100).WithMessage("First name length must not exceed 100.");
 
 		RuleFor(r => r.Dto!.LastName)
-			.NotEmpty().WithMessage("First name cannot be empty")
+			.NotEmpty().WithMessage("Last name cannot be empty")
 			.MaximumLength(100).WithMessage("First name length must not exceed 100.");
 
 		RuleFor(r => r.Dto!.Email)
 			.EmailAddress().WithMessage("Provide correct email address")
-			.MaximumLength(200).WithMessage("First name length must not exceed 100.");
+			.MaximumLength(200).WithMessage("Email length must not exceed 200.");
 
 		RuleFor(r => r.Dto!.Phone)
 			.MaximumLength(12).WithMessage("Phone number length must not exceed 100.");

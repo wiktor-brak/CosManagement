@@ -5,7 +5,7 @@ using MediatR;
 
 namespace CosManagement.CQRS.Appointments.Commands.Create;
 
-public class CreateAppointmentCommand : IRequest<CreateAppointmentDto>, IMapFrom<Appointment>
+public class CreateAppointmentCommand : IRequest<CreateAppointmentDto>
 {
 	public DateTime Date { get; set; }
 	public string? Note { get; set; }
