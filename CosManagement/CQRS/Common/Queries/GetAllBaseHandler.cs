@@ -34,7 +34,7 @@ public abstract class GetAllBaseHandler<TQuery, TResponse, TResource> : IRequest
 			throw new NotFoundException();
 		}
 
-		if (resource.FirstOrDefault()?.OwnerId != _currentUserService.UserId)
+		if (resource.Any(r => r.OwnerId != _currentUserService.UserId))
 		{
 			throw new UnauthorizedAccessException();
 		}

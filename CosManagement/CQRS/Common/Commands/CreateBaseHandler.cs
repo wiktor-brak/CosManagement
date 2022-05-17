@@ -25,7 +25,8 @@ public abstract class CreateBaseHandler<TCommand, TResponse, TResource> : IReque
 		var entry = _mapper.Map<TResource>(request);
 		entry.OwnerId = _currentUserService.UserId;
 
-		AppendAdditionalProperty(entry);
+		AppendAdditionalProperty(entry, request);
+		AppendAdditionalValidation(request);
 
 		await _context.Set<TResource>().AddAsync(entry, cancellationToken);
 		await _context.SaveChangesAsync(cancellationToken);
@@ -34,6 +35,9 @@ public abstract class CreateBaseHandler<TCommand, TResponse, TResource> : IReque
 	}
 
 	// Method to override if additional property is needed
-	public virtual void AppendAdditionalProperty(TResource resource)
+	public virtual void AppendAdditionalProperty(TResource resource, TCommand request)
+	{ }
+
+	public virtual void AppendAdditionalValidation(TCommand request)
 	{ }
 }

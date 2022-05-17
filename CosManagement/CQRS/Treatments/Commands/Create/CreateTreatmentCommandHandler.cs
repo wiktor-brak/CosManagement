@@ -3,6 +3,7 @@ using CosManagement.CQRS.Common;
 using CosManagement.Database;
 using CosManagement.Dtos.Treatments;
 using CosManagement.Entities;
+using CosManagement.Exceptions;
 using CosManagement.Interfaces;
 
 namespace CosManagement.CQRS.Treatments.Commands.Create;
@@ -17,7 +18,7 @@ public class CreateTreatmentCommandHandler : CreateBaseHandler<CreateTreatmentCo
 		_context = context;
 	}
 
-	public override void AppendAdditionalProperty(Treatment resource)
+	public override void AppendAdditionalProperty(Treatment resource, CreateTreatmentCommand request)
 	{
 		Category? category;
 
@@ -36,5 +37,15 @@ public class CreateTreatmentCommandHandler : CreateBaseHandler<CreateTreatmentCo
 
 		category = _context.Categories.FirstOrDefault(c => c.Id == resource.CategoryId);
 		resource.Category = category;
+	}
+
+	public override void AppendAdditionalValidation(CreateTreatmentCommand request)
+	{
+		var category = _context.Categories.FirstOrDefault(c => c.Id == request.CategoryId);
+
+		if (category is null)
+		{
+			throw new NotFoundException($"{NotFoundException.MessagePrefix} category");
+		}
 	}
 }

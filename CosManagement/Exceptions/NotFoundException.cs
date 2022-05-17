@@ -5,6 +5,8 @@ namespace CosManagement.Exceptions;
 [Serializable]
 public class NotFoundException : Exception
 {
+	public static string MessagePrefix { get; set; } = "Cannot find";
+
 	public NotFoundException()
 		: base()
 	{
