@@ -23,6 +23,7 @@
 
 - Hateoas
 - Query order by
+- Patch method endpoints
 
 #### For business logic
 
