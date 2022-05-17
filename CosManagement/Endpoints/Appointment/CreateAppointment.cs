@@ -1,8 +1,6 @@
 ﻿using Ardalis.ApiEndpoints;
 using CosManagement.CQRS.Appointments.Commands.Create;
-using CosManagement.CQRS.Clients.Commands.Create;
 using CosManagement.Dtos.Appointments;
-using CosManagement.Dtos.Clients;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

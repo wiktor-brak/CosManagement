@@ -1,5 +1,4 @@
 ﻿using CosManagement.Dtos.Categories;
-using CosManagement.Dtos.Clients;
 using CosManagement.Interfaces;
 using MediatR;
 

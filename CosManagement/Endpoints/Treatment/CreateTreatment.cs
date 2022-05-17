@@ -1,8 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
-using CosManagement.CQRS.Clients.Commands.Create;
-using CosManagement.CQRS.Treatments.Commands;
 using CosManagement.CQRS.Treatments.Commands.Create;
-using CosManagement.Dtos.Clients;
 using CosManagement.Dtos.Treatments;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

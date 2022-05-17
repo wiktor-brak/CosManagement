@@ -1,6 +1,4 @@
-﻿using AutoMapper.QueryableExtensions;
-using CosManagement.Common.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using CosManagement.Common.Models;
 
 namespace CosManagement.Mappings;
 
