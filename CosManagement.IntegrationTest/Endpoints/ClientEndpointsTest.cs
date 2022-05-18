@@ -1,6 +1,4 @@
 ﻿using CosManagement.Common;
-using CosManagement.CQRS.Clients.Commands.Create;
-using CosManagement.CQRS.Clients.Commands.Update;
 using CosManagement.Dtos.Clients;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -16,30 +14,54 @@ namespace CosManagement.IntegrationTest;
 
 public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 {
-	private async Task<HttpResponseMessage?> CreateTestClient(bool isValid, CreateClientDto? command = default)
+	private async Task<HttpResponseMessage?> CreateTestClient(bool isValid, CreateClientDto? dto = default)
 	{
-		if (isValid)
+		var client = dto;
+
+		if (client is null)
 		{
-			return await _httpClient.PostAsJsonAsync(ApiRoutes.Clients, new CreateClientDto
+			if (isValid)
 			{
-				FirstName = "TestFirstName",
-				LastName = "TestLastName",
-				Email = "test@email.com",
-				AdditionalInformations = "TestInfo",
-				Phone = "111222333"
-			});
+				client = new CreateClientDto
+				{
+					FirstName = "TestFirstName",
+					LastName = "TestLastName",
+					Email = "test@email.com",
+					AdditionalInformations = "TestInfo",
+					Phone = "111222333"
+				};
+			}
+			else
+			{
+				client = new CreateClientDto();
+			}
 		}
 
-		if (command != null)
-		{
-			return await _httpClient.PostAsJsonAsync(ApiRoutes.Clients, command);
-		}
-
-		return await _httpClient.PostAsJsonAsync(ApiRoutes.Clients, new CreateClientDto());
+		return await _httpClient.PostAsJsonAsync(ApiRoutes.Clients, client);
 	}
 
 	[Fact]
-	public async Task Get_WithCorrectId_ShouldReturnOkResponseAndSameId()
+	public async Task GetAllClients_ShouldReturnOkResponse()
+	{
+		var response = await _httpClient.GetAsync(ApiRoutes.Clients);
+
+		response?.StatusCode.Should().Be(HttpStatusCode.OK);
+	}
+
+	[Fact]
+	public async Task GetAllClients_WithIncorrectQueryParameters_ShouldReturnBadRequestResponse()
+	{
+		var response = await _httpClient.GetAsync(ApiRoutes.Clients + "/?pageSize=100&pageNumber=-1");
+
+		var errors = response?.Content.ReadFromJsonAsync<ValidationProblemDetails>()?.Result?.Errors.Values.SelectMany(s => s);
+
+		errors.Should().Contain("PageNumber at least greater than or equal to 1.");
+		errors.Should().Contain("PageSize max value is 50");
+		response?.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+	}
+
+	[Fact]
+	public async Task GetClient_WithCorrectId_ShouldReturnOkResponseAndSameId()
 	{
 		var createResponse = await CreateTestClient(true);
 		var createdClientId = createResponse?.Content?.ReadFromJsonAsync<GetClientDto>()?.Result?.Id;
@@ -52,7 +74,7 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 	}
 
 	[Fact]
-	public async Task Get_WithIncorrectId_ShouldReturnNotFoundResponse()
+	public async Task GetClient_WithIncorrectId_ShouldReturnNotFoundResponse()
 	{
 		var getResponse = await _httpClient.GetAsync(ApiRoutes.Client.Replace("{id}", Guid.NewGuid().ToString()));
 
@@ -60,7 +82,7 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 	}
 
 	[Fact]
-	public async Task Create_WithCorrectData_ShouldReturnCreatedResponseAndCreatedClient()
+	public async Task CreateClient_WithCorrectData_ShouldReturnCreatedResponseAndCreatedClient()
 	{
 		var response = await CreateTestClient(true);
 
@@ -75,11 +97,11 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 	}
 
 	[Fact]
-	public async Task Create_WithEmptyData_ShouldReturnBadRequestResponseAndContainErrors()
+	public async Task CreateClient_WithEmptyData_ShouldReturnBadRequestResponseAndContainErrors()
 	{
 		var response = await CreateTestClient(false);
 
-		var errors = response?.Content.ReadFromJsonAsync<ValidationProblemDetails>()?.Result?.Errors.Values.Select(s => string.Join("", s));
+		var errors = response?.Content.ReadFromJsonAsync<ValidationProblemDetails>()?.Result?.Errors.Values.SelectMany(s => s);
 
 		errors.Should().Contain("First name cannot be empty");
 		errors.Should().Contain("Last name cannot be empty");
@@ -87,7 +109,7 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 	}
 
 	[Fact]
-	public async Task Create_WithIncorrectData_ShouldReturnBadRequestResponseAndContainErrors()
+	public async Task CreateClient_WithIncorrectData_ShouldReturnBadRequestResponseAndContainErrors()
 	{
 		var response = await CreateTestClient(false, new CreateClientDto
 		{
@@ -95,7 +117,7 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 			Phone = "111222333124124214124124124"
 		});
 
-		var errors = response?.Content.ReadFromJsonAsync<ValidationProblemDetails>()?.Result?.Errors.Values.Select(s => string.Join("", s));
+		var errors = response?.Content.ReadFromJsonAsync<ValidationProblemDetails>()?.Result?.Errors.Values.SelectMany(s => s);
 
 		errors.Should().Contain("First name cannot be empty");
 		errors.Should().Contain("Last name cannot be empty");
@@ -105,7 +127,7 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 	}
 
 	[Fact]
-	public async Task Update_WithCorrectData_ShouldReturnOkResponse()
+	public async Task UpdateClient_WithCorrectData_ShouldReturnOkResponse()
 	{
 		var createdResponse = await CreateTestClient(true);
 		var createdClientId = createdResponse?.Content?.ReadFromJsonAsync<CreateClientDto>()?.Result?.Id;
@@ -128,9 +150,9 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 			});
 
 		var getResponse = await _httpClient.GetAsync(ApiRoutes.Client.Replace("{id}", createdClientId.ToString()));
-		var client = getResponse?.Content.ReadFromJsonAsync<GetClientDto>().Result;
+		var client = getResponse.Content.ReadFromJsonAsync<GetClientDto>().Result;
 
-		updateResponse?.StatusCode.Should().Be(HttpStatusCode.OK);
+		updateResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 		client?.FirstName.Should().Be(firstName);
 		client?.LastName.Should().Be(lastName);
 		client?.Email.Should().Be(email);
@@ -139,7 +161,7 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 	}
 
 	[Fact]
-	public async Task Update_WithIncorrectData_ShouldReturnBadRequestResponse()
+	public async Task UpdateClient_WithIncorrectData_ShouldReturnBadRequestResponse()
 	{
 		var createdResponse = await CreateTestClient(true);
 		var createdClientId = createdResponse?.Content?.ReadFromJsonAsync<CreateClientDto>()?.Result?.Id;
@@ -150,7 +172,7 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 	}
 
 	[Fact]
-	public async Task Delete_WithCorrectId_ShouldReturnNoContentResponse()
+	public async Task DeleteClient_WithCorrectId_ShouldReturnNoContentResponse()
 	{
 		var createResponse = await CreateTestClient(true);
 		var createdClientId = createResponse?.Content?.ReadFromJsonAsync<GetClientDto>()?.Result?.Id;
@@ -161,7 +183,7 @@ public class ClientEndpointsTest : ApiBaseTest, IAsyncLifetime
 	}
 
 	[Fact]
-	public async Task Delete_WithIncorrectId_ShouldReturnNotFoundResponse()
+	public async Task DeleteClient_WithIncorrectId_ShouldReturnNotFoundResponse()
 	{
 		var deleteResponse = await _httpClient.DeleteAsync(ApiRoutes.Client.Replace("{id}", Guid.NewGuid().ToString()));
 

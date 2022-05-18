@@ -39,9 +39,9 @@ public class CreateTreatmentCommandHandler : CreateBaseHandler<CreateTreatmentCo
 		resource.Category = category;
 	}
 
-	public override void AppendAdditionalValidation(CreateTreatmentCommand request)
+	public override void AppendAdditionalValidation(Treatment resource)
 	{
-		var category = _context.Categories.FirstOrDefault(c => c.Id == request.CategoryId);
+		var category = _context.Categories.FirstOrDefault(c => c.Id == resource.CategoryId);
 
 		if (category is null)
 		{

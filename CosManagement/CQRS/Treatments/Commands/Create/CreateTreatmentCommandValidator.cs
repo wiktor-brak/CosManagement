@@ -10,10 +10,8 @@ public class CreateTreatmentCommandValidator : AbstractValidator<CreateTreatment
 			.NotEmpty().WithMessage("Name cannot be empty")
 			.MaximumLength(500).WithMessage("Name length must not exceed 500.");
 
-		RuleFor(r => r.CategoryId)
-			.NotEmpty().WithMessage("Category cannot be empty");
-
 		RuleFor(r => r.BasePrice)
-			.NotEmpty().WithMessage("Price cannot be empty");
+			.NotEmpty().WithMessage("Base cannot be empty")
+			.GreaterThan(0).WithMessage("Price must be greater than 0");
 	}
 }

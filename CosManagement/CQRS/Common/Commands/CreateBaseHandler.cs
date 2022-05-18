@@ -26,7 +26,7 @@ public abstract class CreateBaseHandler<TCommand, TResponse, TResource> : IReque
 		entry.OwnerId = _currentUserService.UserId;
 
 		AppendAdditionalProperty(entry, request);
-		AppendAdditionalValidation(request);
+		AppendAdditionalValidation(entry);
 
 		await _context.Set<TResource>().AddAsync(entry, cancellationToken);
 		await _context.SaveChangesAsync(cancellationToken);
@@ -38,6 +38,6 @@ public abstract class CreateBaseHandler<TCommand, TResponse, TResource> : IReque
 	public virtual void AppendAdditionalProperty(TResource resource, TCommand request)
 	{ }
 
-	public virtual void AppendAdditionalValidation(TCommand request)
+	public virtual void AppendAdditionalValidation(TResource request)
 	{ }
 }

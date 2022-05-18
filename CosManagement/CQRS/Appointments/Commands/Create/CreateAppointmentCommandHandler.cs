@@ -38,9 +38,9 @@ public class CreateAppointmentCommandHandler : CreateBaseHandler<CreateAppointme
 		}
 	}
 
-	public override void AppendAdditionalValidation(CreateAppointmentCommand request)
+	public override void AppendAdditionalValidation(Appointment resource)
 	{
-		var client = _context.Clients.FirstOrDefault(c => c.Id == request.ClientId);
+		var client = _context.Clients.FirstOrDefault(c => c.Id == resource.ClientId);
 
 		if (client is null)
 		{

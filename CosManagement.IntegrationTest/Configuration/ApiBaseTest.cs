@@ -1,4 +1,10 @@
-﻿using CosManagement.Identity.Models;
+﻿using CosManagement.Database;
+using CosManagement.Identity.Models;
+using CosManagement.Interfaces;
+using Duende.IdentityServer.EntityFramework.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Moq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
