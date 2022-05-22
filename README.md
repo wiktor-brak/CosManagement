@@ -33,6 +33,8 @@ In progress...
 
 - Abilty to managing and creating multiple salons
 - Resource access for users other than the owner to manage a specific salon based on access granted by the owner
+- Sms/Email service
+- Roles
 
 ### Other plans
 
