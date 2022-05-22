@@ -15,7 +15,11 @@
 
 ### Preview
 
-//Todo
+In progress...
+
+### How to run 
+
+In progress...
 
 ### TodDo's
 
