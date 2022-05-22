@@ -33,10 +33,12 @@ public abstract class UpdateBaseHandler<TCommand, TResource, TDto> : IRequestHan
 
 		if (dbEntry.OwnerId != _currentUserService.UserId)
 		{
-			throw new UnauthorizedAccessException();
+			throw new ForbiddenAccessException();
 		}
 
 		dbEntry = _mapper.Map(request.Dto, dbEntry);
+
+		MapAdditionalProperties(dbEntry, request);
 
 		_context.Set<TResource>().Update(dbEntry);
 
@@ -50,4 +52,7 @@ public abstract class UpdateBaseHandler<TCommand, TResource, TDto> : IRequestHan
 	{
 		return _context.Set<TResource>();
 	}
+
+	public virtual void MapAdditionalProperties(TResource resource, TCommand request)
+	{ }
 }

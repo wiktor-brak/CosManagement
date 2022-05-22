@@ -15,9 +15,9 @@ public class IdentityService : IIdentityService
 
 	public async Task<string> GetUserNameAsync(string? userId)
 	{
-		var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+		var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-		if (user == null)
+		if (user is null)
 		{
 			return "Unknown";
 		}

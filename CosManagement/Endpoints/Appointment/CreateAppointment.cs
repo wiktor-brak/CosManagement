@@ -10,7 +10,7 @@ namespace CosManagement.Endpoints.Appointment;
 
 [Authorize]
 public class CreateAppointment : EndpointBaseAsync
-	.WithRequest<CreateAppointmentCommand>
+	.WithRequest<UpdateApptointmentCommand>
 	.WithActionResult<CreateAppointmentDto>
 {
 	private readonly IMediator _mediator;
@@ -26,9 +26,9 @@ public class CreateAppointment : EndpointBaseAsync
 	Description = "Creates new appointment",
 	OperationId = "Appointments.Create",
 	Tags = new[] { "AppointmentsEndpoints" })]
-	public override async Task<ActionResult<CreateAppointmentDto>> HandleAsync(CreateAppointmentCommand command, CancellationToken cancellationToken = default)
+	public override async Task<ActionResult<CreateAppointmentDto>> HandleAsync(UpdateApptointmentCommand command, CancellationToken cancellationToken = default)
 	{
 		var appointment = await _mediator.Send(command, cancellationToken);
-		return CreatedAtRoute("GetClient", new { id = appointment.Id }, appointment);
+		return CreatedAtRoute("GetAppointment", new { id = appointment.Id }, appointment);
 	}
 }

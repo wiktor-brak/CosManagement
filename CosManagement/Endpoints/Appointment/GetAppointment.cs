@@ -20,7 +20,7 @@ public class GetAppointment : EndpointBaseAsync
 		_mediator = mediator;
 	}
 
-	[HttpGet("api/appointments/{id}")]
+	[HttpGet("api/appointments/{id}", Name = "GetAppointment")]
 	[SwaggerOperation(
 	Summary = "Get one appointment by id (GUID)",
 	Description = "Get one appointment by id (GUID)",

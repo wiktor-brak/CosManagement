@@ -8,7 +8,7 @@ using CosManagement.Interfaces;
 
 namespace CosManagement.CQRS.Appointments.Commands.Create;
 
-public class CreateAppointmentCommandHandler : CreateBaseHandler<CreateAppointmentCommand, CreateAppointmentDto, Appointment>
+public class CreateAppointmentCommandHandler : CreateBaseHandler<UpdateApptointmentCommand, CreateAppointmentDto, Appointment>
 {
 	private readonly ApplicationDbContext _context;
 
@@ -18,24 +18,18 @@ public class CreateAppointmentCommandHandler : CreateBaseHandler<CreateAppointme
 		_context = context;
 	}
 
-	public override void AppendAdditionalProperty(Appointment resource, CreateAppointmentCommand request)
+	public override void AppendAdditionalProperty(Appointment resource, UpdateApptointmentCommand request)
 	{
-		if (request is null || resource is null)
-		{
-			return;
-		}
+		resource.Treatments = new();
 
-		foreach (var treatmentId in request.TreatmentsIds)
+		request.TreatmentsIds.ForEach(treatmentId =>
 		{
 			var treatment = _context.Treatments.FirstOrDefault(t => t.Id == treatmentId);
-
-			if (treatment == null)
+			if (treatment is not null)
 			{
-				continue;
+				resource.Treatments.Add(treatment);
 			}
-
-			resource.Treatments.Add(treatment);
-		}
+		});
 	}
 
 	public override void AppendAdditionalValidation(Appointment resource)

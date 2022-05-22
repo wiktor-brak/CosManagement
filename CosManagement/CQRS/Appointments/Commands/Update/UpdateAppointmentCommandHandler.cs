@@ -24,4 +24,18 @@ public class UpdateAppointmentCommandHandler : UpdateBaseHandler<UpdateAppointme
 			.Include(a => a.Client)
 			.Include(a => a.Treatments);
 	}
+
+	public override void MapAdditionalProperties(Appointment resource, UpdateAppointmentCommand request)
+	{
+		resource.Treatments = new();
+
+		request.Dto?.TreatmentsIds.ForEach(treatmentId =>
+		{
+			var treatment = _context.Treatments.FirstOrDefault(t => t.Id == treatmentId);
+			if (treatment is not null)
+			{
+				resource.Treatments.Add(treatment);
+			}
+		});
+	}
 }

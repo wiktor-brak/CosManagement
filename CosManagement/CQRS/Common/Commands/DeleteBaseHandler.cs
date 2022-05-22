@@ -32,7 +32,7 @@ public class DeleteBaseHandler<TCommand, TResource> : IRequestHandler<TCommand, 
 
 		if (entry.OwnerId != _currentUserService.UserId)
 		{
-			throw new UnauthorizedAccessException();
+			throw new ForbiddenAccessException();
 		}
 
 		_context.Set<TResource>().Remove(entry);

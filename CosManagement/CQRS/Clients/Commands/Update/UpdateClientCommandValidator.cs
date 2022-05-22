@@ -19,7 +19,7 @@ public class UpdateClientCommandValidator : AbstractValidator<UpdateClientComman
 			.MaximumLength(200).WithMessage("Email length must not exceed 200.");
 
 		RuleFor(r => r.Dto!.Phone)
-			.MaximumLength(12).WithMessage("Phone number length must not exceed 100.");
+			.MaximumLength(12).WithMessage("Phone number length must not exceed 12.");
 
 		RuleFor(r => r.Dto!.AdditionalInformations)
 			.MaximumLength(1000).WithMessage("Additional information length must not exceed 100.");

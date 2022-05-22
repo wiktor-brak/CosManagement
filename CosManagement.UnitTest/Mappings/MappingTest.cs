@@ -20,7 +20,10 @@ public class MappingTests
 	public MappingTests()
 	{
 		_configuration = new MapperConfiguration(config =>
-			config.AddProfile<MappingProfile>());
+		{
+			config.AddProfile<MappingProfile>();
+			config.AddProfile<AdditionalMappings>();
+		});
 
 		_mapper = _configuration.CreateMapper();
 	}

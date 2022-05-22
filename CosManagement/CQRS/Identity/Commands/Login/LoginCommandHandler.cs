@@ -27,17 +27,18 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, JwtResponse>
 		var user = await _userManager.FindByNameAsync(request.Username);
 		if (user != null && await _userManager.CheckPasswordAsync(user, request.Password))
 		{
-			var userRoles = await _userManager.GetRolesAsync(user);
+			//var userRoles = await _userManager.GetRolesAsync(user);
 
 			var authClaims = new List<Claim>
 				{
 					new Claim(ClaimTypes.NameIdentifier, user.Id),
 				};
 
-			foreach (var userRole in userRoles)
-			{
-				authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-			}
+			// TODO Add roles system
+			//foreach (var userRole in userRoles)
+			//{
+			//	authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+			//}
 
 			var token = GetToken(authClaims);
 
@@ -48,7 +49,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, JwtResponse>
 			};
 		}
 
-		throw new LoginFailException();
+		throw new UnauthorizedAccessException();
 	}
 
 	private JwtSecurityToken GetToken(List<Claim> authClaims)

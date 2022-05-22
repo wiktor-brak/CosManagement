@@ -36,7 +36,7 @@ public abstract class GetAllBaseHandler<TQuery, TResponse, TResource> : IRequest
 
 		if (resource.Any(r => r.OwnerId != _currentUserService.UserId))
 		{
-			throw new UnauthorizedAccessException();
+			throw new ForbiddenAccessException();
 		}
 
 		return await resource

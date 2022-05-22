@@ -2,7 +2,7 @@
 
 namespace CosManagement.CQRS.Appointments.Commands.Create;
 
-public class CreateAppointmentCommandValidator : AbstractValidator<CreateAppointmentCommand>
+public class CreateAppointmentCommandValidator : AbstractValidator<UpdateApptointmentCommand>
 {
 	public CreateAppointmentCommandValidator()
 	{

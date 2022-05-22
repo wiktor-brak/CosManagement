@@ -20,7 +20,7 @@ public class GetCategory : EndpointBaseAsync
 		_mediator = mediator;
 	}
 
-	[HttpGet("api/categories/{id}")]
+	[HttpGet("api/categories/{id}", Name = "GetCategory")]
 	[SwaggerOperation(
 	Summary = "Get one category by id (GUID)",
 	Description = "Get one category by id (GUID)",

@@ -4,9 +4,9 @@ using CosManagement.Mappings;
 
 namespace CosManagement.Dtos.Appointments;
 
-public class UpdateAppointmentDto : BaseAppointmentDto, IMapFrom<Appointment>
+public class UpdateAppointmentDto : BaseAppointmentDto
 {
 	public Guid ClientId { get; set; }
 
-	public List<GetTreatmentDto> Treatments { get; set; } = new();
+	public List<Guid> TreatmentsIds { get; set; } = new();
 }

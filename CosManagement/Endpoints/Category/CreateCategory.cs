@@ -29,6 +29,6 @@ public class CreateCategory : EndpointBaseAsync
 	public override async Task<ActionResult<CreateCategoryDto>> HandleAsync(CreateCategoryCommand command, CancellationToken cancellationToken = default)
 	{
 		var category = await _mediator.Send(command, cancellationToken);
-		return CreatedAtRoute("GetClient", new { id = category.Id }, category);
+		return CreatedAtRoute("GetCategory", new { id = category.Id }, category);
 	}
 }

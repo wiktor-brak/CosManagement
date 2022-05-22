@@ -12,7 +12,6 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 	{
 		_exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
 			{
-				{ typeof(LoginFailException), HandleLoginFailException },
 				{ typeof(ValidationException), HandleValidationException },
 				{ typeof(NotFoundException), HandleNotFoundException },
 				{ typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
@@ -99,22 +98,6 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 	}
 
 	private void HandleUnauthorizedAccessException(ExceptionContext context)
-	{
-		var details = new ProblemDetails
-		{
-			Status = StatusCodes.Status401Unauthorized,
-			Title = "You cannot access this resource",
-		};
-
-		context.Result = new ObjectResult(details)
-		{
-			StatusCode = StatusCodes.Status401Unauthorized
-		};
-
-		context.ExceptionHandled = true;
-	}
-
-	private void HandleLoginFailException(ExceptionContext context)
 	{
 		var details = new ProblemDetails
 		{

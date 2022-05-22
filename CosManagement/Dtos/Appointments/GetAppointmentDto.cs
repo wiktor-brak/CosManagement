@@ -7,6 +7,7 @@ namespace CosManagement.Dtos.Appointments;
 
 public class GetAppointmentDto : BaseAppointmentDto, IMapFrom<Appointment>
 {
+	public Guid Id { get; set; }
 	public Guid ClientId { get; set; }
 
 	public GetClientWithoutAppointmentsDto? Client { get; set; }

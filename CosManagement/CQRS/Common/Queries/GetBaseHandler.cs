@@ -35,7 +35,7 @@ public class GetBaseHandler<TQuery, TResponse, TResource> : IRequestHandler<TQue
 
 		if (resource.OwnerId != _currentUserService.UserId)
 		{
-			throw new UnauthorizedAccessException();
+			throw new ForbiddenAccessException();
 		}
 
 		return _mapper.Map<TResponse>(resource);
